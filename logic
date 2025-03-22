@@ -1,0 +1,75 @@
+Ensemble : definit le domaine de l attribut(type)
+attribut : type(Ensemble) , nom :c est la colonne
+Relation : c est le tableau avec une list d attribut et un nom
+
+Database : c est la base qui va avoir une liste de Relation 
+Requete : c est le truc qui va gerer les requetes et relier Database et Database Manager
+Database Manager : c est le truc qui va gerer les requetes et tous les bases existante , 
+elle va en gros recevoir des requetes et retourner des reponses
+
+
+en fonction des classes Ensemble ,attribut ,Relation
+donne moi la class Database , requete ,et Database manager,
+dans la classe Database quand je fait new Database (elle va creer  sil nexiste pas le dossier dans /databases/nomBase.txt )
+dans la classe Database je doi avoir enregistrer relation et load relation elle va retourner un relation avec tous les attributs 
+et valeurs contenue dans la relation de la table, je doit aussi avoir creer relation, get realtion, modifier donner, effacer relation
+et apres chaque operation on doit l enregistrer dans le fichier basenom.txt 
+
+dans requete donc prend les requete de database manager et appelle les fonctions corespondante dans database 
+ensuite il retourne les resultats et les donnes a databases manager qui va afficher les resultats
+
+donne aussi une class main pour tester tous cela
+
+
+Serveur : c est la classe qui va recevoir les connection et les requetes des autres socket et 
+utiliser la classe DatabaseManager pour repondre au client 
+cette classe marche comme suit , elle va tourner autour d un port specifique et ip specifique
+son contructeur demande un port et ip (l ip doit aussi pouvoir prendre localhost)
+Donc il y a une classe  MainServeur qui va appeller le constructeur de serveur et j aimerai que
+l ip et le port soit pris dans un fichier serveur.conf et il va attendre les connexions clientes 
+et y repondre au repondre et tant que le client n envoye pas exit elle doit repondre a tous ces requete
+Pour Serveur utilise socket et thread pour gerer plusieurs client
+J aimerai que quand le client envoye une reponse elle doit pouvoir envoyer les reponses avec "\n" 
+ou des reponses en deux ou plus de lignes
+
+Client : c est le programme qui va permetre d envoye r des requetes pour manipuler les base de donnes
+en lancant la classe MainClient elle va prendre les ip et port du serveur dans Serveur.conf , et
+si elle trouve le serveur cette chose va s afficher '>' et elle va attendre une requete et
+apres avoir cliquer sur entrer elle va envoier la requete au serveur et elle va afficher les reponses 
+et quand elle saisie exit elle se deconnecte du serveur et le mainClient s arrete 
+
+creer moi les classes serveur et client , MainClient, MainServeur
+
+
+Inteface JDBC
+
+Connection.java : classe qui va se connecter au serveur pour pouvoir acceder a la base a partir de DatabaseManager , ces fonctions sont les suivants:
+createStatement() et d autre fonction dont j aurai besoin
+Statement.java : classe qui va me premetre d executer des requete et de faire des update bref il va implementer ces fonctions
+ResultSet executeQuery(String sql) ,executeUpdate(String sql), close(), execute(String sql) 
+ResultSet.java : classe de type de retour d une requete Query de Statement
+    Object getObject(String columnLabel) throws Exception Recupere la valeur d'une colonne sous forme d'objet.
+    , boolean next() throws Exception : Passe à la ligne suivante du resultat.,  
+    Object getObject(int columnIndex) Recupere la valeur d'une colonne sous forme d'objet.
+    void close() throws Exception Ferme le ResultSet
+PreparedStatement.kava : classe qui extend de Statement, donc dans la classe Connection il y aussi une fonction createPreparedStatement :voici ces fonctions : 
+void setParameter(int parameterIndex, Object value) throws Exception: Definit un parametre dans la requête SQL.
+boolean execute() throws Exception:Execute la requête preparee.;
+
+
+Donne moi les classes : Connection , Statement, PreparedStatement, et ResultSet et une classe main MainJDBC pour tester les fonctions 
+connection a la base par un le nom de la base , l execution d une requete par Statement et par PreparedStatement et l affichge du contenue 
+de ResultSet 
+
+
+System de vues :
+View.java : c est une classe qui herite de relation ,c est une classe qui stocke une requete 
+lorsque je fais select * from nomView , le select dans Requete.java , il va d abord verifier si c est un 
+view que possede la base et si c est le cas elle va execute la requete qu il y a a l interieur sinon elle va 
+juste chercher le nom de la relation et faire select comme d habitude
+au lieu d une relation , on va donc pouvoir faire CREATE VIEW , DELETE VIEW , SELECT * FROM nomDuView
+donc dans Database il y a aussi une liste de view , une fonction charger et upload view 
+il y aussi SHOW VIEWS , SHOW nomview pour afficher la requete qu il contient
+lorsque on fait donc new view on va declarer une relation avec une seule attribut: requete 
+avec une domaine : String.class , et elle va pouvoir stocker une requete lorsqu on fait ajoute requete 
+Donne moi la classe View avec tous les modifications (fonction) dans les tous autres classes correspondante 

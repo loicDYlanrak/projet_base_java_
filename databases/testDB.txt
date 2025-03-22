@@ -1,0 +1,2 @@
+users:nom class java.lang.String,age class java.lang.Integer,isAdmin class java.lang.Boolean:Kevin,30,false
+[VIEWS]
